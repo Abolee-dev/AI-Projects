@@ -1,0 +1,9 @@
+pyhive[hive]
+pandas
+pyarrow
+pyspark
+langchain
+chromadb
+openai
+fastapi
+uvicorn[standard]

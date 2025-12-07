@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: it-service-chatbot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: it-service-chatbot
+  template:
+    metadata:
+      labels:
+        app: it-service-chatbot
+    spec:
+      containers:
+      - name: chatbot
+        # Replace this with your container registry/image name
+        image: it-service-chatbot:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000
+        env:
+        - name: HIVE_HOST
+          value: "hive-host"
+        - name: HIVE_PORT
+          value: "10000"
+        - name: HIVE_USER
+          value: "hadoop"
+        - name: IT_SERVER
+          value: "gb-gf"
+        - name: IT_SERVICE
+          value: "itservice"
+        - name: USE_LOCAL_LLM
+          value: "false"
+        - name: EMBED_MODEL
+          value: "text-embedding-ada-002"
+        - name: LLM_MODEL
+          value: "gpt-3.5-turbo"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: it-service-chatbot-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: it-service-chatbot
+  ports:
+  - port: 80
+    targetPort: 8000
