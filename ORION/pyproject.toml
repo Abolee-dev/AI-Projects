@@ -1,0 +1,70 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "orion-regulatory-ai"
+version = "0.1.0"
+description = "Regulatory AI Assistant — RAG + Hybrid Search + Action Layer"
+requires-python = ">=3.11"
+readme = "Readme.md"
+
+dependencies = [
+    # OpenAI (LLM + embeddings)
+    "openai>=1.30.0",
+    # Config & validation
+    "pydantic>=2.7.0",
+    "pydantic-settings>=2.3.0",
+    # FastAPI
+    "fastapi>=0.111.0",
+    "uvicorn[standard]>=0.30.0",
+    "python-multipart>=0.0.9",
+    # Vector store
+    "faiss-cpu>=1.8.0",
+    "numpy>=1.26.0",
+    # BM25
+    "rank-bm25>=0.2.2",
+    # Reranker + Qwen local embeddings
+    "sentence-transformers>=3.0.0",
+    # PDF ingestion
+    "pymupdf>=1.24.0",
+    "pdfplumber>=0.11.0",
+    # CLI
+    "rich>=13.7.0",
+    "prompt-toolkit>=3.0.43",
+    # HTTP + resilience
+    "httpx>=0.27.0",
+    "tenacity>=8.3.0",
+    # Disk cache
+    "diskcache>=5.6.0",
+    # Jira (optional action)
+    "jira>=3.8.0",
+]
+
+[project.optional-dependencies]
+gpu = ["torch>=2.3.0", "accelerate>=0.30.0"]
+dev = [
+    "pytest>=8.2.0",
+    "pytest-asyncio>=0.23.0",
+    "httpx>=0.27.0",
+    "ruff>=0.4.0",
+    "mypy>=1.10.0",
+]
+
+[project.scripts]
+orion     = "cli.bot:main"
+orion-api = "api.main:run"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.ruff]
+line-length   = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths    = ["tests"]
