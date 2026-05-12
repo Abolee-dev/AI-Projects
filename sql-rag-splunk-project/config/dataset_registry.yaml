@@ -1,0 +1,43 @@
+datasets:
+  vulnerability_events:
+    description: Vulnerability records exported from Splunk.
+    business_owner: Cyber / ITSO
+    classification: Internal
+    allowed_for_sqlrag: true
+    columns:
+      - name: event_id
+        type: TEXT
+        description: Unique event ID
+      - name: import_date
+        type: DATE
+        description: Date when record was imported
+      - name: application_name
+        type: TEXT
+        description: Application or service name
+      - name: asset_name
+        type: TEXT
+        description: Host or asset name
+      - name: itso
+        type: TEXT
+        description: IT service owner
+      - name: severity
+        type: TEXT
+        description: Vulnerability severity
+      - name: vul_id
+        type: TEXT
+        description: Vulnerability ID
+      - name: mitigation_status
+        type: TEXT
+        description: Open or Closed state
+      - name: first_notification
+        type: DATE
+        description: First notification date
+      - name: due_date
+        type: DATE
+        description: SLA due date
+      - name: region
+        type: TEXT
+        description: Region
+      - name: l4_asset_dept
+        type: TEXT
+        description: L4 asset department

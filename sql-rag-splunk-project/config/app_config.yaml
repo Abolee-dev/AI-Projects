@@ -1,0 +1,5 @@
+app:
+  name: sql-rag-splunk-project
+  environment: local
+  default_row_limit: 100
+  max_row_limit: 500
